@@ -3,7 +3,7 @@ console.log('JavaScript Working');
 $(document).ready(() => {
   console.log('JQuery Working');
   // Establish Click Listeners
-  setupClickListeners()
+  setupClickListeners();
   // load existing koalas on page load
   getKoalas();
 }); // end doc ready
@@ -34,17 +34,9 @@ function getKoalas(){
     url: '/koalas'
   }).then(response => {
     console.log(`GET getKoalas: Client <-- back from Server: ${response}`);
-    let el = $('#viewKoalas');
-    el.empty();
-    for (i = 0; i < response.length; i++) {
-      el.append(`<tr><td class="koalaName">${response[i].name}</td>
-                <td class="ageKoala">${response[i].age}</td>
-                <td class="genderKoala">${response[i].gender}</td>
-                <td class="readyToTransferKoala">${response[i].ready_to_transfer}</td>
-                <td class="notesKoala">${response[i].notes}</td></tr>`)
-    }
+    appendKoalas(response);
   }).catch(response => {
-    alert(`Invalid GET getKoalas: Client <-- back from Server: ${response}`)
+    alert(`Invalid GET getKoalas: Client <-- back from Server: ${response}`);
   })
 } // end getKoalas
 
@@ -58,6 +50,38 @@ function saveKoala(newKoala){
   }).then(response => {
     console.log(`POST newKoala: Client <-- back from Server: ${response}`);
   }).catch(response => {
-    alert(`Invalid POST newKoala: Client <-- back from Server: ${response}`)
+    alert(`Invalid POST newKoala: Client <-- back from Server: ${response}`);
   })
+}
+
+function appendKoalas(response) {
+  let el = $('#viewKoalas');
+  el.empty();
+  for (i = 0; i < response.length; i++) {
+    if (response[i].ready_to_transfer === 'Y') {
+      el.append(`<tr><td class="koalaName">${response[i].name}</td>
+              <td class="ageKoala">${response[i].age}</td>
+              <td class="genderKoala">${response[i].gender}</td>
+              <td class="readyToTransferKoala">${transformLetter(response[i].ready_to_transfer)}</td>
+              <td class="notesKoala">${response[i].notes}</td>
+              <td class="markReadyKoala"></td>
+              <td class="removeKoala"><button class="deleteKoala">Delete</button></td></tr>`);
+    } else {
+      el.append(`<tr><td class="koalaName">${response[i].name}</td>
+              <td class="ageKoala">${response[i].age}</td>
+              <td class="genderKoala">${response[i].gender}</td>
+              <td class="readyToTransferKoala">${transformLetter(response[i].ready_to_transfer)}</td>
+              <td class="notesKoala">${response[i].notes}</td>
+              <td class="markReadyKoala"><button class="markReadybuttonKoala">Ready for Transfer</button></td>
+              <td class="removeKoala"><button class="deleteKoala">Delete</button></td></tr>`);
+    }
+  }
+}
+
+function transformLetter(letter) {
+  if (letter === 'Y') {
+    return true;
+  } else {
+    return false;
+  }
 }
