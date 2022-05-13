@@ -5,11 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server/server.js"
+    "start": "node server/server.js",
+    "go": "nodemon server/server.js"
   },
   "author": "@devjana",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.18.1",
+    "nodemon": "^2.0.16",
+    "pg": "^8.7.3"
   }
 }

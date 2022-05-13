@@ -1,0 +1,8 @@
+img {
+    max-width: 15%;
+    max-height: 150px;
+}
+
+.flex-header {
+    display: flex;
+}
