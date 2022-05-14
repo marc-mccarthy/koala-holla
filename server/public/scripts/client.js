@@ -9,20 +9,21 @@ $(document).ready(() => {
 }); // end doc ready
 
 function setupClickListeners() {
+  $('#viewKoalas').on('click', '.markReadybuttonKoala', changeTransfer)
   $('#addButton').on('click', function() {
     console.log('addButton has been clicked');
     // get user input and put in an object
     // NOT WORKING YET :(
     // using a test object
     let koalaToSend = {
-      name: $('#nameIn').val(),
+      name: ($('#nameIn').val()).toUpperCase(),
       age: $('#ageIn').val(),
       gender: ($('#genderIn').val()).toUpperCase(),
       readyForTransfer: ($('#readyForTransferIn').val()).toUpperCase(),
-      notes: $('#notesIn').val()
+      notes: (($('#notesIn').val()).charAt(0)).toUpperCase() + ($('#notesIn').val()).slice(1)
     };
     // call saveKoala with the new obejct
-    checkKoala(koalaObject)
+    checkKoala(koalaToSend)
   });
 } // end setupClickListeners
 
@@ -37,6 +38,8 @@ function checkKoala(newKoala) {
     alert("Only 'M' or 'F' are acceptable 'Gender' values for this exercise");
   } else if (newKoala.readyForTransfer !== 'Y' && newKoala.readyForTransfer !== 'N') {
     alert("Only 'Y' or 'N' are acceptable 'Ready For Transfer' values for this exercise");
+  } else if (newKoala.age.includes('.')) {
+    alert("Only Whole Numbers are acceptable 'Age' values for this exercise");
   } else {
     saveKoala(newKoala);
   }
@@ -76,21 +79,34 @@ function appendKoalas(response) {
   el.empty();
   for (i = 0; i < response.length; i++) {
     if (response[i].ready_to_transfer === 'Y') {
-      el.append(`<tr><td class="koalaName">${response[i].name}</td>
+      el.append(`<tr class="rowKoala"><td class="koalaName">${response[i].name}</td>
               <td class="ageKoala">${response[i].age}</td>
               <td class="genderKoala">${response[i].gender}</td>
-              <td class="readyToTransferKoala">Y</td>
+              <td class="readyForTransferKoala">Y</td>
               <td class="notesKoala">${response[i].notes}</td>
               <td class="markReadyKoala"></td>
               <td class="removeKoala"><button class="deleteKoala">Delete</button></td></tr>`);
     } else {
-      el.append(`<tr><td class="koalaName">${response[i].name}</td>
+      el.append(`<tr class="rowKoala"><td class="koalaName">${response[i].name}</td>
               <td class="ageKoala">${response[i].age}</td>
               <td class="genderKoala">${response[i].gender}</td>
-              <td class="readyToTransferKoala">N</td>
+              <td class="readyForTransferKoala">N</td>
               <td class="notesKoala">${response[i].notes}</td>
-              <td class="markReadyKoala"><button class="markReadybuttonKoala">Ready for Transfer</button></td>
+              <td class="markReadyKoala"><button class="markReadybuttonKoala" data-id="${response[i].id}">Ready for Transfer</button></td>
               <td class="removeKoala"><button class="deleteKoala">Delete</button></td></tr>`);
     }
   }
 } // end appendKoalas
+
+function changeTransfer() {
+  let id = 
+  $.ajax({
+    method: 'PUT',
+    url: '/koalas',
+    data: {id: $(this).data('id')}
+  }).then(response => {
+    getKoalas();
+  }).catch(response => {
+    alert(`Invalid PUT changeTransfer: Client <-- back from Server: ${error}`);
+  })
+}

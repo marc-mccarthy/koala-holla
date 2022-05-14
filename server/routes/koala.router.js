@@ -38,7 +38,17 @@ koalaRouter.post('/', (req, res) => {
 }) 
 
 // PUT
-
+koalaRouter.put('/', (req, res) => {
+    console.log('PUT /inventory');
+    const queryString = `UPDATE inventory SET ready_to_transfer = 'Y' WHERE id = ${req.body.id};`
+    pool.query(queryString)
+    .then(result => {
+        res.sendStatus(201);
+    }).catch(error => {
+        console.log(error);
+        res.sendStatus(500);
+    })
+})
 
 // DELETE
 
