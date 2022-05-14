@@ -14,7 +14,7 @@ const pool = new pg.Pool({
 // GET
 koalaRouter.get('/', (req, res) => {
     console.log('GET /inventory');
-    pool.query(`SELECT * FROM inventory`)
+    pool.query('SELECT * FROM inventory')
     .then(result => {
         res.send(result.rows);
     }).catch(error => {
@@ -24,10 +24,18 @@ koalaRouter.get('/', (req, res) => {
 })
 
 // POST
-koalaRouter.get('/', (req, res) => {
+koalaRouter.post('/', (req, res) => {
     console.log('POST /inventory');
-    pool.query()
-})
+    const queryString = 'INSERT INTO inventory (name, gender, age, ready_to_transfer, notes) VALUES ($1, $2, $3, $4, $5);';
+    let values = [req.body.name, req.body.gender, req.body.age, req.body.readyForTransfer, req.body.notes];
+    pool.query(queryString, values)
+    .then(result => {
+        res.sendStatus(201);
+    }).catch(error => {
+        console.log(error);
+        res.sendStatus(500);
+    })
+}) 
 
 // PUT
 

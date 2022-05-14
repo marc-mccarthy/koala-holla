@@ -15,30 +15,32 @@ function setupClickListeners() {
     // NOT WORKING YET :(
     // using a test object
     let koalaToSend = {
-      name: $('#nameIn'),
-      age: $('#ageIn'),
-      gender: $('#genderIn'),
-      readyForTransfer: $('#readyForTransferIn'),
-      notes: $('#notesIn')
+      name: $('#nameIn').val(),
+      age: $('#ageIn').val(),
+      gender: ($('#genderIn').val()).toUpperCase(),
+      readyForTransfer: ($('#readyForTransferIn').val()).toUpperCase(),
+      notes: $('#notesIn').val()
     };
     // call saveKoala with the new obejct
-    saveKoala(koalaToSend);
-  }); 
-}
+    checkKoala(koalaObject)
+  });
+} // end setupClickListeners
 
-function getKoalas(){
-  console.log(`GET getKoalas: Client --> to Server`);
-  // ajax call to server to get koalas
-  $.ajax({
-    method: 'GET',
-    url: '/koalas'
-  }).then(response => {
-    console.log(`GET getKoalas: Client <-- back from Server: ${response}`);
-    appendKoalas(response);
-  }).catch(response => {
-    alert(`Invalid GET getKoalas: Client <-- back from Server: ${response}`);
-  })
-} // end getKoalas
+function checkKoala(newKoala) {
+  for (const entry in newKoala) {
+    if (newKoala[entry] === '') {
+      alert('Forgot a value')
+      break;
+    }
+  }
+  if (newKoala.gender !== 'M' && newKoala.gender !== 'F') {
+    alert("Only 'M' or 'F' are acceptable 'Gender' values for this exercise");
+  } else if (newKoala.readyForTransfer !== 'Y' && newKoala.readyForTransfer !== 'N') {
+    alert("Only 'Y' or 'N' are acceptable 'Ready For Transfer' values for this exercise");
+  } else {
+    saveKoala(newKoala);
+  }
+} // end checkKoala
 
 function saveKoala(newKoala){
   console.log(`POST newKoala: Client --> to Server: ${newKoala}`);
@@ -49,10 +51,25 @@ function saveKoala(newKoala){
     data: newKoala
   }).then(response => {
     console.log(`POST newKoala: Client <-- back from Server: ${response}`);
-  }).catch(response => {
-    alert(`Invalid POST newKoala: Client <-- back from Server: ${response}`);
+    getKoalas();
+  }).catch(error => {
+    alert(`Invalid POST newKoala: Client <-- back from Server: ${error}`);
   })
-}
+} // end saveKoala
+
+function getKoalas(){
+  console.log(`GET getKoalas: Client --> to Server`);
+  // ajax call to server to get koalas
+  $.ajax({
+    method: 'GET',
+    url: '/koalas'
+  }).then(response => {
+    console.log(`GET getKoalas: Client <-- back from Server: ${response}`);
+    appendKoalas(response);
+  }).catch(error => {
+    alert(`Invalid GET getKoalas: Client <-- back from Server: ${error}`);
+  })
+} // end getKoalas
 
 function appendKoalas(response) {
   let el = $('#viewKoalas');
@@ -62,7 +79,7 @@ function appendKoalas(response) {
       el.append(`<tr><td class="koalaName">${response[i].name}</td>
               <td class="ageKoala">${response[i].age}</td>
               <td class="genderKoala">${response[i].gender}</td>
-              <td class="readyToTransferKoala">${transformLetter(response[i].ready_to_transfer)}</td>
+              <td class="readyToTransferKoala">Y</td>
               <td class="notesKoala">${response[i].notes}</td>
               <td class="markReadyKoala"></td>
               <td class="removeKoala"><button class="deleteKoala">Delete</button></td></tr>`);
@@ -70,18 +87,10 @@ function appendKoalas(response) {
       el.append(`<tr><td class="koalaName">${response[i].name}</td>
               <td class="ageKoala">${response[i].age}</td>
               <td class="genderKoala">${response[i].gender}</td>
-              <td class="readyToTransferKoala">${transformLetter(response[i].ready_to_transfer)}</td>
+              <td class="readyToTransferKoala">N</td>
               <td class="notesKoala">${response[i].notes}</td>
               <td class="markReadyKoala"><button class="markReadybuttonKoala">Ready for Transfer</button></td>
               <td class="removeKoala"><button class="deleteKoala">Delete</button></td></tr>`);
     }
   }
-}
-
-function transformLetter(letter) {
-  if (letter === 'Y') {
-    return true;
-  } else {
-    return false;
-  }
-}
+} // end appendKoalas
