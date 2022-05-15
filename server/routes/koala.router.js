@@ -14,7 +14,8 @@ const pool = new pg.Pool({
 // GET
 koalaRouter.get('/', (req, res) => {
     console.log('GET /inventory');
-    pool.query('SELECT * FROM inventory')
+    let queryString = 'SELECT * FROM inventory;';
+    pool.query(queryString)
     .then(result => {
         res.send(result.rows);
     }).catch(error => {
@@ -40,7 +41,7 @@ koalaRouter.post('/', (req, res) => {
 // PUT
 koalaRouter.put('/', (req, res) => {
     console.log('PUT /inventory');
-    const queryString = `UPDATE inventory SET ready_to_transfer = 'Y' WHERE id = ${req.body.id};`
+    const queryString = `UPDATE inventory SET ready_to_transfer = 'Y' WHERE id = ${req.body.id};`;
     pool.query(queryString)
     .then(result => {
         res.sendStatus(201);
@@ -51,5 +52,16 @@ koalaRouter.put('/', (req, res) => {
 })
 
 // DELETE
+koalaRouter.delete('/', (req, res) => {
+    console.log('DELETE /inventory');
+    const queryString = `DELETE FROM inventory WHERE id = ${req.body.id};`;
+    pool.query(queryString)
+    .then(result => {
+        res.sendStatus(201);
+    }).catch(error => {
+        console.log(error);
+        res.sendStatus(500);
+    })
+})
 
 module.exports = koalaRouter;

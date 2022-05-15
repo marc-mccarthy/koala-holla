@@ -9,7 +9,8 @@ $(document).ready(() => {
 }); // end doc ready
 
 function setupClickListeners() {
-  $('#viewKoalas').on('click', '.markReadybuttonKoala', changeTransfer)
+  $('#viewKoalas').on('click', '.markReadybuttonKoala', changeTransfer);
+  $('#viewKoalas').on('click', '.deleteKoala', deleteKoala)
   $('#addButton').on('click', function() {
     console.log('addButton has been clicked');
     // get user input and put in an object
@@ -85,7 +86,7 @@ function appendKoalas(response) {
               <td class="readyForTransferKoala">Y</td>
               <td class="notesKoala">${response[i].notes}</td>
               <td class="markReadyKoala"></td>
-              <td class="removeKoala"><button class="deleteKoala">Delete</button></td></tr>`);
+              <td class="removeKoala"><button class="deleteKoala" data-id="${response[i].id}">Delete</button></td></tr>`);
     } else {
       el.append(`<tr class="rowKoala"><td class="koalaName">${response[i].name}</td>
               <td class="ageKoala">${response[i].age}</td>
@@ -93,20 +94,33 @@ function appendKoalas(response) {
               <td class="readyForTransferKoala">N</td>
               <td class="notesKoala">${response[i].notes}</td>
               <td class="markReadyKoala"><button class="markReadybuttonKoala" data-id="${response[i].id}">Ready for Transfer</button></td>
-              <td class="removeKoala"><button class="deleteKoala">Delete</button></td></tr>`);
+              <td class="removeKoala"><button class="deleteKoala" data-id="${response[i].id}">Delete</button></td></tr>`);
     }
   }
 } // end appendKoalas
 
 function changeTransfer() {
-  let id = 
   $.ajax({
     method: 'PUT',
     url: '/koalas',
     data: {id: $(this).data('id')}
   }).then(response => {
+    console.log(`PUT changeTransfer: Client <-- back from Server: ${response}`);
     getKoalas();
   }).catch(response => {
     alert(`Invalid PUT changeTransfer: Client <-- back from Server: ${error}`);
+  })
+}
+
+function deleteKoala() {
+  $.ajax({
+    method: 'DELETE',
+    url: '/koalas',
+    data: {id: $(this).data('id')}
+  }).then(response => {
+    console.log(`DELETE deleteKoala: Client <-- back from Server: ${response}`);
+    getKoalas();
+  }).catch(response => {
+    alert(`Invalid DELETE deleteKoala: Client <-- back from Server: ${error}`);
   })
 }
