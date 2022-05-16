@@ -10,7 +10,7 @@ $(document).ready(() => {
 
 function setupClickListeners() {
   $('#viewKoalas').on('click', '.markReadybuttonKoala', changeTransfer);
-  $('#viewKoalas').on('click', '.deleteKoala', deleteKoala)
+  $('#viewKoalas').on('click', '.deleteKoala', deleteKoalaAlert)
   $('#addButton').on('click', function() {
     console.log('addButton has been clicked');
     // get user input and put in an object
@@ -107,20 +107,39 @@ function changeTransfer() {
   }).then(response => {
     console.log(`PUT changeTransfer: Client <-- back from Server: ${response}`);
     getKoalas();
-  }).catch(response => {
+  }).catch(error => {
     alert(`Invalid PUT changeTransfer: Client <-- back from Server: ${error}`);
   })
 }
 
-function deleteKoala() {
+function deleteKoala(dataId) {
   $.ajax({
     method: 'DELETE',
     url: '/koalas',
-    data: {id: $(this).data('id')}
+    data: dataId
   }).then(response => {
     console.log(`DELETE deleteKoala: Client <-- back from Server: ${response}`);
     getKoalas();
-  }).catch(response => {
+  }).catch(error => {
     alert(`Invalid DELETE deleteKoala: Client <-- back from Server: ${error}`);
+  })
+}
+
+function deleteKoalaAlert() {
+  let dataId = {id: $(this).data('id')}
+  Swal.fire({
+    title: 'Are you sure?',
+    showDenyButton: true,
+    showCancelButton: true,
+    confirmButtonText: 'Yes',
+    denyButtonText: `No`
+  }).then(result => {
+    if (result.isConfirmed) {
+      Swal.fire('Confirmed');
+      deleteKoala(dataId);
+      return true;
+    } else if (result.isDenied) {
+      return false;
+    }
   })
 }
