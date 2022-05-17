@@ -43,7 +43,6 @@ koalaRouter.put('/', (req, res) => {
     console.log('PUT /inventory');
     returnReadyForTransfer(req.body.id)
     .then(result => {
-        console.log(result)
         if (result === 'N') {
             const queryString = `UPDATE inventory SET ready_to_transfer = 'Y' WHERE id = ${req.body.id};`;
             pool.query(queryString)
@@ -83,8 +82,8 @@ function returnReadyForTransfer(id) {
     const queryString = `SELECT ready_to_transfer FROM inventory WHERE id = ${id};`;
     return pool.query(queryString)
     .then(result => {
-        let letter = result.rows[0].ready_to_transfer
-        return letter
+        let letter = result.rows[0].ready_to_transfer;
+        return letter;
     })
 }
 

@@ -10,28 +10,29 @@ $(document).ready(() => {
 
 function setupClickListeners() {
   $('#viewKoalas').on('click', '.markReadybuttonKoala', changeTransfer);
-  $('#viewKoalas').on('click', '.deleteKoala', deleteKoalaAlert)
+  $('#viewKoalas').on('click', '.deleteKoala', deleteKoalaAlert);
   $('#addButton').on('click', function() {
     console.log('addButton has been clicked');
     // get user input and put in an object
     // NOT WORKING YET :(
     // using a test object
     let koalaToSend = {
-      name: ($('#nameIn').val()).toUpperCase(),
+      name: (($('#nameIn').val()).charAt(0)).toUpperCase() + ($('#nameIn').val()).slice(1),
       age: $('#ageIn').val(),
       gender: ($('#genderIn').val()).toUpperCase(),
       readyForTransfer: ($('#readyForTransferIn').val()).toUpperCase(),
       notes: (($('#notesIn').val()).charAt(0)).toUpperCase() + ($('#notesIn').val()).slice(1)
     };
+    emptyInputs();
     // call saveKoala with the new obejct
-    checkKoala(koalaToSend)
+    checkKoala(koalaToSend);
   });
 } // end setupClickListeners
 
 function checkKoala(newKoala) {
   for (const entry in newKoala) {
     if (newKoala[entry] === '') {
-      alert('Forgot a value')
+      alert('Forgot a value');
       break;
     }
   }
@@ -46,7 +47,7 @@ function checkKoala(newKoala) {
   }
 } // end checkKoala
 
-function saveKoala(newKoala){
+function saveKoala(newKoala) {
   console.log(`POST newKoala: Client --> to Server: ${newKoala}`);
   // ajax call to server to save koala
   $.ajax({
@@ -126,7 +127,7 @@ function deleteKoala(dataId) {
 }
 
 function deleteKoalaAlert() {
-  let dataId = {id: $(this).data('id')}
+  let dataId = {id: $(this).data('id')};
   Swal.fire({
     title: 'Are you sure?',
     showDenyButton: true,
