@@ -41,13 +41,28 @@ koalaRouter.post('/', (req, res) => {
 // PUT
 koalaRouter.put('/', (req, res) => {
     console.log('PUT /inventory');
-    const queryString = `UPDATE inventory SET ready_to_transfer = 'Y' WHERE id = ${req.body.id};`;
-    pool.query(queryString)
+    returnReadyForTransfer(req.body.id)
     .then(result => {
-        res.sendStatus(201);
-    }).catch(error => {
-        console.log(error);
-        res.sendStatus(500);
+        console.log(result)
+        if (result === 'N') {
+            const queryString = `UPDATE inventory SET ready_to_transfer = 'Y' WHERE id = ${req.body.id};`;
+            pool.query(queryString)
+            .then(result => {
+                res.sendStatus(201);
+            }).catch(error => {
+                console.log(error);
+                res.sendStatus(500);
+            })
+        } else {
+            const queryString = `UPDATE inventory SET ready_to_transfer = 'N' WHERE id = ${req.body.id};`;
+            pool.query(queryString)
+            .then(result => {
+                res.sendStatus(201);
+            }).catch(error => {
+                console.log(error);
+                res.sendStatus(500);
+            })
+        }
     })
 })
 
@@ -63,5 +78,14 @@ koalaRouter.delete('/', (req, res) => {
         res.sendStatus(500);
     })
 })
+
+function returnReadyForTransfer(id) {
+    const queryString = `SELECT ready_to_transfer FROM inventory WHERE id = ${id};`;
+    return pool.query(queryString)
+    .then(result => {
+        let letter = result.rows[0].ready_to_transfer
+        return letter
+    })
+}
 
 module.exports = koalaRouter;

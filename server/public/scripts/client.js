@@ -85,7 +85,7 @@ function appendKoalas(response) {
               <td class="genderKoala">${response[i].gender}</td>
               <td class="readyForTransferKoala">Y</td>
               <td class="notesKoala">${response[i].notes}</td>
-              <td class="markReadyKoala"></td>
+              <td class="markReadyKoala"><button class="markReadybuttonKoala" data-id="${response[i].id}">Not Ready</button></td>
               <td class="removeKoala"><button class="deleteKoala" data-id="${response[i].id}">Delete</button></td></tr>`);
     } else {
       el.append(`<tr class="rowKoala"><td class="koalaName">${response[i].name}</td>
@@ -93,7 +93,7 @@ function appendKoalas(response) {
               <td class="genderKoala">${response[i].gender}</td>
               <td class="readyForTransferKoala">N</td>
               <td class="notesKoala">${response[i].notes}</td>
-              <td class="markReadyKoala"><button class="markReadybuttonKoala" data-id="${response[i].id}">Ready for Transfer</button></td>
+              <td class="markReadyKoala"><button class="markReadybuttonKoala" data-id="${response[i].id}">Ready</button></td>
               <td class="removeKoala"><button class="deleteKoala" data-id="${response[i].id}">Delete</button></td></tr>`);
     }
   }
