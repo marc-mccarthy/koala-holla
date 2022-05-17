@@ -83,17 +83,17 @@ function appendKoalas(response) {
       el.append(`<tr class="rowKoala"><td class="koalaName">${response[i].name}</td>
               <td class="ageKoala">${response[i].age}</td>
               <td class="genderKoala">${response[i].gender}</td>
-              <td class="readyForTransferKoala">Y</td>
+              <td class="readyForTransferKoala">True</td>
               <td class="notesKoala">${response[i].notes}</td>
-              <td class="markReadyKoala"><button class="markReadybuttonKoala" data-id="${response[i].id}">Not Ready</button></td>
+              <td class="markReadyKoala"><button class="markReadybuttonKoala" data-id="${response[i].id}">Mark as Not Ready</button></td>
               <td class="removeKoala"><button class="deleteKoala" data-id="${response[i].id}">Delete</button></td></tr>`);
     } else {
       el.append(`<tr class="rowKoala"><td class="koalaName">${response[i].name}</td>
               <td class="ageKoala">${response[i].age}</td>
               <td class="genderKoala">${response[i].gender}</td>
-              <td class="readyForTransferKoala">N</td>
+              <td class="readyForTransferKoala">False</td>
               <td class="notesKoala">${response[i].notes}</td>
-              <td class="markReadyKoala"><button class="markReadybuttonKoala" data-id="${response[i].id}">Ready</button></td>
+              <td class="markReadyKoala"><button class="markReadybuttonKoala" data-id="${response[i].id}">Mark as Ready</button></td>
               <td class="removeKoala"><button class="deleteKoala" data-id="${response[i].id}">Delete</button></td></tr>`);
     }
   }
