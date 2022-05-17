@@ -2,7 +2,7 @@
 
 ## Heroku Link
 
-[Koala Holla](https://safe-citadel-71763.herokuapp.com/)
+[Koala Holla](https://koala-holla-1.herokuapp.com/)
 
 ## Description
 
