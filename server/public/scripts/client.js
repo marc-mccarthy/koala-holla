@@ -90,14 +90,14 @@ function appendKoalas(response) {
       transfer = 'False';
       ready = "I'm Ready Now";
     }
-    el.append(`<tr class="rowKoala">
+    el.append(`<tr class="koalaRow">
       <td class="koalaName">${response[i].name}</td>
-      <td class="ageKoala">${response[i].age}</td>
-      <td class="genderKoala">${response[i].gender}</td>
-      <td class="readyForTransferKoala">${transfer}</td>
-      <td class="notesKoala">${response[i].notes}</td>
-      <td class="markReadyKoala"><button class="markReadybuttonKoala" data-id="${response[i].id}">${ready}</button></td>
-      <td class="removeKoala"><button class="deleteKoala" data-id="${response[i].id}">Delete</button></td></tr>`);
+      <td class="koalaAge">${response[i].age}</td>
+      <td class="koalaGender">${response[i].gender}</td>
+      <td class="koalaReadyForTransfer">${transfer}</td>
+      <td class="koalaNotes">${response[i].notes}</td>
+      <td class="koalaReady"><button class="koalaReadyButton" data-id="${response[i].id}">${ready}</button></td>
+      <td class="koalaDelete"><button class="koalaDeleteButton" data-id="${response[i].id}">Delete</button></td></tr>`);
   };
 } // end appendKoalas
 
@@ -137,7 +137,6 @@ function deleteKoalaAlert() {
     denyButtonText: `No`
   }).then(result => {
     if (result.isConfirmed) {
-      Swal.fire('Confirmed');
       deleteKoala(dataId);
       return true;
     } else if (result.isDenied) {
