@@ -9,7 +9,7 @@ $(document).ready(() => {
 }); // end doc ready
 
 function setupClickListeners() {
-  $('#viewKoalas').on('click', '.markReadybuttonKoala', changeTransfer);
+  $('#viewKoalas').on('click', '.markReadybuttonKoala', toggleReadyForTransfer);
   $('#viewKoalas').on('click', '.deleteKoala', deleteKoalaAlert);
   $('#addButton').on('click', function() {
     console.log('addButton has been clicked');
@@ -26,6 +26,7 @@ function setupClickListeners() {
     emptyInputs();
     // call saveKoala with the new obejct
     checkKoala(koalaToSend);
+    saveKoala(newKoala);
   });
 } // end setupClickListeners
 
@@ -43,7 +44,7 @@ function checkKoala(newKoala) {
   } else if (newKoala.age.includes('.')) {
     alert("Only Whole Numbers are acceptable 'Age' values for this exercise");
   } else {
-    saveKoala(newKoala);
+    return true;
   }
 } // end checkKoala
 
@@ -80,27 +81,27 @@ function appendKoalas(response) {
   let el = $('#viewKoalas');
   el.empty();
   for (i = 0; i < response.length; i++) {
+    let transfer = '';
+    let ready = '';
     if (response[i].ready_to_transfer === 'Y') {
-      el.append(`<tr class="rowKoala"><td class="koalaName">${response[i].name}</td>
-              <td class="ageKoala">${response[i].age}</td>
-              <td class="genderKoala">${response[i].gender}</td>
-              <td class="readyForTransferKoala">True</td>
-              <td class="notesKoala">${response[i].notes}</td>
-              <td class="markReadyKoala"><button class="markReadybuttonKoala" data-id="${response[i].id}">Mark as Not Ready</button></td>
-              <td class="removeKoala"><button class="deleteKoala" data-id="${response[i].id}">Delete</button></td></tr>`);
+      transfer = 'True';
+      ready = "I'm Not Ready Now";
     } else {
-      el.append(`<tr class="rowKoala"><td class="koalaName">${response[i].name}</td>
-              <td class="ageKoala">${response[i].age}</td>
-              <td class="genderKoala">${response[i].gender}</td>
-              <td class="readyForTransferKoala">False</td>
-              <td class="notesKoala">${response[i].notes}</td>
-              <td class="markReadyKoala"><button class="markReadybuttonKoala" data-id="${response[i].id}">Mark as Ready</button></td>
-              <td class="removeKoala"><button class="deleteKoala" data-id="${response[i].id}">Delete</button></td></tr>`);
+      transfer = 'False';
+      ready = "I'm Ready Now";
     }
-  }
+    el.append(`<tr class="rowKoala">
+      <td class="koalaName">${response[i].name}</td>
+      <td class="ageKoala">${response[i].age}</td>
+      <td class="genderKoala">${response[i].gender}</td>
+      <td class="readyForTransferKoala">${transfer}</td>
+      <td class="notesKoala">${response[i].notes}</td>
+      <td class="markReadyKoala"><button class="markReadybuttonKoala" data-id="${response[i].id}">${ready}</button></td>
+      <td class="removeKoala"><button class="deleteKoala" data-id="${response[i].id}">Delete</button></td></tr>`);
+  };
 } // end appendKoalas
 
-function changeTransfer() {
+function toggleReadyForTransfer() {
   $.ajax({
     method: 'PUT',
     url: '/koalas',
@@ -143,4 +144,12 @@ function deleteKoalaAlert() {
       return false;
     }
   })
+}
+
+function emptyInputs() {
+  $('#nameIn').val('');
+  $('#ageIn').val('');
+  $('#genderIn').val('');
+  $('#readyForTransferIn').val('');
+  $('#notesIn').val('');
 }
