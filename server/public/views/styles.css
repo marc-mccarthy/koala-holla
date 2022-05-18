@@ -66,3 +66,7 @@ th, td {
 .text-center, .koalaReady, .koalaDelete {
     text-align: center;
 }
+
+.koalaReadyButton {
+    width: 135px;
+}
