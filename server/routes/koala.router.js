@@ -39,12 +39,12 @@ koalaRouter.post('/', (req, res) => {
 }) 
 
 // PUT
-koalaRouter.put('/', (req, res) => {
+koalaRouter.put('/transfer', (req, res) => {
    console.log('PUT /inventory');
-   returnReadyForTransfer(req.body.id)
+   transferStatus(req.query.id)
    .then(result => {
       if (result === 'N') {
-         const queryString = `UPDATE inventory SET ready_to_transfer = 'Y' WHERE id = ${req.body.id};`;
+         const queryString = `UPDATE inventory SET ready_to_transfer = 'Y' WHERE id = ${req.query.id};`;
          pool.query(queryString)
          .then(result => {
             res.sendStatus(201);
@@ -53,7 +53,7 @@ koalaRouter.put('/', (req, res) => {
             res.sendStatus(500);
          })
       } else {
-         const queryString = `UPDATE inventory SET ready_to_transfer = 'N' WHERE id = ${req.body.id};`;
+         const queryString = `UPDATE inventory SET ready_to_transfer = 'N' WHERE id = ${req.query.id};`;
          pool.query(queryString)
          .then(result => {
             res.sendStatus(201);
@@ -79,7 +79,7 @@ koalaRouter.delete('/', (req, res) => {
    })
 })
 
-function returnReadyForTransfer(id) {
+function transferStatus(id) {
    const queryString = `SELECT ready_to_transfer FROM inventory WHERE id = ${id};`;
    return pool.query(queryString)
    .then(result => {

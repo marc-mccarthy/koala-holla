@@ -103,8 +103,7 @@ function appendKoalas(response) {
 function koalaReadyForTransfer() {
    $.ajax({
       method: 'PUT',
-      url: '/koalas',
-      data: {id: $(this).data('id')}
+      url: `/koalas/transfer?id=${$(this).data('id')}`
    }).then(response => {
       console.log(`PUT changeTransfer: Client <-- Server: ${response}`);
       getKoalas();
@@ -114,7 +113,7 @@ function koalaReadyForTransfer() {
 }
 
 function koalaDeleteAlert() {
-   let dataId = $(this).data('id');
+   let id = $(this).data('id');
    Swal.fire({
       title: 'Are you sure?',
       showDenyButton: true,
@@ -123,18 +122,18 @@ function koalaDeleteAlert() {
       denyButtonText: `No`
    }).then(result => {
       if (result.isConfirmed) {
-         deleteKoala(dataId);
+         deleteKoala(id);
          return true;
       } else if (result.isDenied) {
          return false;
       }
-   })
+   }).catch()
 }
 
-function deleteKoala(dataId) {
+function deleteKoala(id) {
    $.ajax({
       method: 'DELETE',
-      url: `/koalas?id=${dataId}`
+      url: `/koalas?id=${id}`
    }).then(response => {
       console.log(`DELETE deleteKoala: Client <-- Server: ${response}`);
       getKoalas();
