@@ -1,36 +1,36 @@
 <!DOCTYPE html>
 <html>
-  <head>
+    <head>
     <meta charset="utf-8">
     <title>Koala Holla</title>
     <script src="vendors/jquery-3.3.1.min.js" charset="utf-8"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="scripts/client.js" charset="utf-8"></script>
     <link rel="stylesheet" href="views/styles.css">
-  </head>
-  <body>
+    </head>
+    <body>
     <header class="flex-header">
-      <img class="flex-header-item" class="icon" src="images/icon.png"/>
-      <div class="flex-header-item">
+        <img class="flex-header-item" class="icon" src="images/icon.png"/>
+        <div class="flex-header-item">
         <h1>Koala Holla</h1>
         <h3>1976 Llama Comma Drive</h3>
         <h3>Walla Walla, WA</h3>
-      </div>
+        </div>
     </header>
     <section id="addKoala">
-      <h2>Add Koala</h2>
-      <input type="text" id="nameIn" maxlength="12" placeholder="Name">
-      <input type="number" id="ageIn" maxlength="2" placeholder="Age">
-      <input type="text" id="genderIn" maxlength="1" placeholder="Gender">
-      <input type="text" id="readyForTransferIn" maxlength="1" placeholder="Transfer">
-      <input type="text" id="notesIn" maxlength="50" placeholder="Notes">
-      <button type="button" id="addButton">Add Koala</button>
+        <h2>Add Koala</h2>
+        <input type="text" id="nameIn" maxlength="12" placeholder="Name">
+        <input type="number" id="ageIn" maxlength="2" placeholder="Age">
+        <input type="text" id="genderIn" maxlength="1" placeholder="Gender">
+        <input type="text" id="readyForTransferIn" maxlength="1" placeholder="Transfer">
+        <input type="text" id="notesIn" maxlength="50" placeholder="Notes">
+        <button type="button" id="addButton">Add Koala</button>
     </section>
     <section>
-      <h2 id="addKoalaHeader">All Koalas</h2>
-      <table>
+        <h2 id="addKoalaHeader">All Koalas</h2>
+        <table>
         <thead>
-          <tr>
+            <tr>
             <th>Name</th>
             <th>Age</th>
             <th>Gender</th>
@@ -38,11 +38,11 @@
             <th>Notes</th>
             <th class="text-center">Ready or Not?</th>
             <th class="text-center">Delete</th>
-          </tr>
+            </tr>
         </thead>
         <tbody id="viewKoalas">
         </tbody>
-      </table>
+        </table>
     </section>
-  </body>
+    </body>
 </html>
