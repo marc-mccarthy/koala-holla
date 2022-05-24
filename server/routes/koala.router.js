@@ -4,14 +4,13 @@ const pg = require('pg');
 
 // DB CONNECTION
 const pool = new pg.Pool({
-    user: 'teslqkrvkrqkkn',
-    password: 'b6c7429845a65c109cd2473235ecf49feaf42e46a5c8524669a1d5df6229342e',
-    database: 'd12ps19re8u17t',
-    host: 'ec2-54-86-224-85.compute-1.amazonaws.com',
-    ssl: true,
+    label: "Koala Holla",
+    host: "ec2-54-86-224-85.compute-1.amazonaws.com",
+    user: "teslqkrvkrqkkn",
     port: 5432,
-    max: 12,
-    idleTimeoutMillis: 30000 
+    ssl: true,
+    database: "d12ps19re8u17t",
+    password: "b6c7429845a65c109cd2473235ecf49feaf42e46a5c8524669a1d5df6229342e"
 });
 
 // GET
