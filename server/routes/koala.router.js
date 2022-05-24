@@ -8,7 +8,7 @@ const pool = new pg.Pool({
     password: 'b6c7429845a65c109cd2473235ecf49feaf42e46a5c8524669a1d5df6229342e',
     database: 'd12ps19re8u17t',
     host: 'ec2-54-86-224-85.compute-1.amazonaws.com',
-    ssl: false,
+    ssl: true,
     port: 5432,
     max: 12,
     idleTimeoutMillis: 30000 
