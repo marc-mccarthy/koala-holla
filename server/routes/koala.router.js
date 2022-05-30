@@ -8,9 +8,9 @@ const pool = new pg.Pool({
     host: "143.244.162.109",
     // dokku-postgres-koala-holla-database
     user: "postgres",
-    port: 5432,
-    // 29620
-    ssl: false,
+    port: 29620,
+    // 5432
+    ssl: true,
     database: "koala_holla_database",
     password: "cffc0655a517005e83fd9d46141c7e59"
 });
