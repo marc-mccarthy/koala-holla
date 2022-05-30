@@ -7,7 +7,7 @@ const pool = new pg.Pool({
     label: "Koala Holla",
     host: "143.244.162.109",
     user: "postgres",
-    port: 5432,
+    port: 29620,
     ssl: true,
     database: "koala_holla_database",
     password: "cffc0655a517005e83fd9d46141c7e59"
