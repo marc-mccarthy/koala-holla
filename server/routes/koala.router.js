@@ -13,9 +13,6 @@ const pool = new pg.Pool({
     ssl: true
 });
 
-// Bypass encryption for testing
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-
 // GET
 koalaRouter.get('/', (req, res) => {
     console.log('GET /inventory');
