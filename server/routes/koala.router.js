@@ -9,7 +9,8 @@ const pool = new pg.Pool({
     label: 'Koala Holla',
     connectionString: process.env.DATABASE_URL,
     max: 20,
-    idleTimeoutMillis: 30000
+    idleTimeoutMillis: 30000,
+    ssl: true
 });
 
 // GET
