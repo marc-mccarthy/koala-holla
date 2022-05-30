@@ -1,7 +1,7 @@
 This must stop:
 ---------------
-![Nevar again](https://i.makeagif.com/media/8-22-2014/GO_DT4.gif)
 
+![Nevar again](https://i.makeagif.com/media/8-22-2014/GO_DT4.gif)
 
 Koala Holla
 ===========
@@ -10,6 +10,7 @@ Our client, Koala Holla (1976 Llama Comma Drive, Walla Walla WA) is a non-profit
 
 Technologies
 ------------
+
 * JQuery
 * Node
 * Express
@@ -17,6 +18,7 @@ Technologies
 
 Client needs
 ------------
+
 Koala Holla has provided a table of their current inventory:
 
 | id | name    | gender | age | ready_to_transer | notes                            |
@@ -34,6 +36,7 @@ They need the ability for mark a Koala ready for transfer. Each koala in your UI
 
 Delivery
 --------
+
 Upon completion of the project you'll need to provide not only the source (via GitHub url), but also instructions on how the database table should be set up. This can be in a simple `database.sql` file in the repo.
 
 ### STRETCH GOALS
@@ -44,8 +47,6 @@ Upon completion of the project you'll need to provide not only the source (via G
 4. Add form validation, additional styling and a README.md.
 5. Client side filtering with a text box
 6. Ability to edit other information (Name, Age, Notes) for existing Koalas in the db.
-
-
 
 ### Sample Wireframe
 --------
