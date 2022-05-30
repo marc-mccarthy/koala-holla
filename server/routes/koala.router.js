@@ -10,7 +10,7 @@ const pool = new pg.Pool({
     user: "postgres",
     port: 5432,
     // 29620
-    ssl: true,
+    ssl: false,
     database: "koala_holla_database",
     password: "cffc0655a517005e83fd9d46141c7e59"
 });
@@ -24,7 +24,7 @@ koalaRouter.get('/', (req, res) => {
         res.send(result.rows);
     }).catch(error => {
         console.log(error);
-        res.sendStatus(501);
+        res.sendStatus(500);
     })
 })
 
