@@ -4,10 +4,12 @@ const pg = require('pg');
 require('dotenv').config();
 
 // DB CONNECTION
+// Local Host or Heroku Postgres Database connectionString
 const pool = new pg.Pool({
-    label: "Koala Holla",
+    label: 'Koala Holla',
     connectionString: process.env.DATABASE_URL,
-    ssl: { rejectUnauthorized: false }
+    max: 20,
+    idleTimeoutMillis: 30000
 });
 
 // GET
