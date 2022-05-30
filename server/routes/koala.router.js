@@ -6,9 +6,11 @@ const pg = require('pg');
 const pool = new pg.Pool({
     label: "Koala Holla",
     host: "143.244.162.109",
+    // dokku-postgres-koala-holla-database
     user: "postgres",
-    port: 29620,
-    ssl: true,
+    port: 5432,
+    // 29620
+    ssl: false,
     database: "koala_holla_database",
     password: "cffc0655a517005e83fd9d46141c7e59"
 });
