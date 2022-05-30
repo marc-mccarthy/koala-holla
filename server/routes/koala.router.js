@@ -5,11 +5,11 @@ const pg = require('pg');
 // DB CONNECTION
 const pool = new pg.Pool({
     label: "Koala Holla",
-    host: "143.244.162.109",
-    // dokku-postgres-koala-holla-database
+    host: "dokku-postgres-koala-holla-database",
+    // 143.244.162.109
     user: "postgres",
-    port: 29620,
-    // 5432
+    port: 5432,
+    // 29620
     ssl: true,
     database: "koala_holla_database",
     password: "cffc0655a517005e83fd9d46141c7e59"
@@ -24,7 +24,7 @@ koalaRouter.get('/', (req, res) => {
         res.send(result.rows);
     }).catch(error => {
         console.log(error);
-        res.sendStatus(500);
+        res.sendStatus(501);
     })
 })
 
