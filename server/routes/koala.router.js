@@ -5,12 +5,12 @@ const pg = require('pg');
 // DB CONNECTION
 const pool = new pg.Pool({
     label: "Koala Holla",
-    host: "ec2-54-211-255-161.compute-1.amazonaws.com",
-    user: "uwoswwtuyqtfbn",
+    host: "",
+    user: "",
     port: 5432,
     ssl: true,
-    database: "d297s2o2gv5hka",
-    password: "fdf9c69631a79d04e92f678d5f67c2b4c990abbaf723ed77f507c257897a4faf"
+    database: "",
+    password: ""
 });
 
 // GET
