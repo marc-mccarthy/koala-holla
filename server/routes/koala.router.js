@@ -1,16 +1,13 @@
 const express = require('express');
 const koalaRouter = express.Router();
 const pg = require('pg');
+require('dotenv').config();
 
 // DB CONNECTION
 const pool = new pg.Pool({
     label: "Koala Holla",
-    host: "",
-    user: "",
-    port: 5432,
-    ssl: true,
-    database: "",
-    password: ""
+    connectionString: process.env.DATABASE_URL,
+    ssl: { rejectUnauthorized: false }
 });
 
 // GET

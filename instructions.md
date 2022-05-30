@@ -49,7 +49,7 @@ Upon completion of the project you'll need to provide not only the source (via G
 6. Ability to edit other information (Name, Age, Notes) for existing Koalas in the db.
 
 ### Sample Wireframe
---------
+
 Your final product may look something like this:
 
 ![sample](sample.png)

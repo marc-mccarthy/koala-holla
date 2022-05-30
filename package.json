@@ -11,6 +11,7 @@
   "author": "@devjana",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "nodemon": "^2.0.16",
     "pg": "^8.7.3"
