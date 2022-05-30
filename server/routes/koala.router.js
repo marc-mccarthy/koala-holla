@@ -5,15 +5,14 @@ require('dotenv').config();
 
 // DB CONNECTION
 // Local Host or Heroku Postgres Database connectionString
-const connectStr = process.env.DATABASE_URL;
 const pool = new pg.Pool({
     label: 'Koala Holla',
-    connectionString: connectStr,
+    connectionString: process.env.DATABASE_URL,
     max: 20,
     idleTimeoutMillis: 30000,
-    ssl: true
 });
 
+// Bypass encryption for testing
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 // GET
