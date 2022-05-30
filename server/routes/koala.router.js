@@ -4,7 +4,7 @@ const pg = require('pg');
 require('dotenv').config();
 
 // DB CONNECTION
-// Local Host or Heroku Postgres Database connectionString
+// Heroku Postgres Database connectionString
 const pool = new pg.Pool({
     label: 'Koala Holla',
     connectionString: process.env.DATABASE_URL,
@@ -12,6 +12,20 @@ const pool = new pg.Pool({
     idleTimeoutMillis: 30000,
     ssl: true
 });
+
+/*
+// DB CONNECTION
+// Local Host Postgres Database connectionString
+const pool = new pg.Pool({
+    label: 'Koala Holla',
+    connectionString: process.env.DATABASE_URL,
+    max: 20,
+    idleTimeoutMillis: 30000
+});
+*/
+
+// Bypass encryption for Heroku testing
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 // GET
 koalaRouter.get('/', (req, res) => {
